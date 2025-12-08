@@ -19,16 +19,16 @@
 - [ ] Show day / night
 - [ ] Show Moisture
 - [ ] Use Ultrasonic sensor to "wave off" the alarm
+- [ ] Vehicle base Scania S A4x2
+- [ ] Pen Holder
 
 ## Ideas
 
 - [ ] Display time as analog; timezones
 - [ ] Room temperatures in other units
 - [ ] Get time from the internet
-- [ ] Vehicle Base (Scania S 8x4/4)
 - [ ] Drivable Vehicle (Servo; Electric Motor; Remote control)
 - [ ] Autonomous driving (Ultrasonic sensor)
 - [ ] Flappy Bird / Snake on the screen
 - [ ] Trailer Hitch
 - [ ] Lighting; Including cable spots for trailer lights
-- [ ] Pen Holder
