@@ -1,11 +1,8 @@
 #ifndef NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_NETWORKHANDLER_HPP
 #define NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_NETWORKHANDLER_HPP
 
+namespace network_handler {
+void setup();
+} // namespace network_handler
 
-namespace lib {
-    class NetworkHandler {
-    };
-} // lib
-
-
-#endif //NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_NETWORKHANDLER_HPP
+#endif // NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_NETWORKHANDLER_HPP
