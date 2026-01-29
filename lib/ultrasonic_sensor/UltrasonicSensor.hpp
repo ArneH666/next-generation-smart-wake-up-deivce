@@ -2,7 +2,7 @@
 #define NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_ULTRASONIC_SENSOR_HPP
 
 namespace ultrasonic_sensor {
-float getDistance();
+double getDistance();
 } // namespace ultrasonic_sensor
 
 #endif // NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_ULTRASONIC_SENSOR_HPP

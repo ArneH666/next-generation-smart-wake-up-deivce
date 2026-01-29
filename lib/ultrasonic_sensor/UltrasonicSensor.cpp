@@ -1,11 +1,11 @@
-#include "ultrasonic_sensor.hpp"
+#include "UltrasonicSensor.hpp"
 #include "../../include/Pins.hpp"
 #include <Arduino.h>
 
 void triggerSensor();
 
 namespace ultrasonic_sensor {
-float getDistance() {
+double getDistance() {
   triggerSensor();
 
   const unsigned long signal_duration =

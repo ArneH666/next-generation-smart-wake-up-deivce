@@ -1,6 +1,6 @@
-#include <Arduino.h>
 #include "PinModeSetter.hpp"
-#include "Pins.hpp"
+#include "../../include/Pins.hpp"
+#include <Arduino.h>
 
 // TODO: Set the pin modes for all pins.
 
@@ -10,19 +10,30 @@ void setOutputPins();
 
 void setSpecialPins();
 
-namespace lib {
-    void setPinModes() {
-        setInputPins();
-        setOutputPins();
-        setSpecialPins();
-    }
-} // lib
+void setMisc();
+
+namespace pinmode_setter {
+void setPinModes() {
+  setInputPins();
+  setOutputPins();
+  setSpecialPins();
+  setMisc();
+}
+} // namespace pinmode_setter
 
 void setInputPins() {
+  constexpr int I = INPUT;
+  pinMode(ULTRASONIC_SENSOR_ECHO_PIN, I);
 }
 
 void setOutputPins() {
+  constexpr int O = OUTPUT;
+  pinMode(ULTRASONIC_SENSOR_TRIGGER_PIN, O);
 }
 
-void setSpecialPins() {
+void setSpecialPins() {}
+
+void setMisc() {
+  ledcSetup(SERVO_STEERING_CHANEL, 50, 12);
+  ledcAttachPin(SERVO_STEERING_PIN, SERVO_STEERING_CHANEL);
 }

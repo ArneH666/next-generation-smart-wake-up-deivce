@@ -26,7 +26,8 @@
 
 ## Ideas
 
-- [ ] Display time as analog; timezones
+- [ ] Display time as analog
+- [ ] Change timezone
 - [ ] Room temperatures in other units
 - [ ] Get time from the internet
 - [ ] Drivable Vehicle (Servo; Electric Motor; Remote control)
@@ -34,3 +35,11 @@
 - [ ] Flappy Bird / Snake on the screen
 - [ ] Trailer Hitch
 - [ ] Lighting; Including cable spots for trailer lights
+
+## Setup
+
+- Add the correct Network SSID & Password in [NetworkHandler.hpp](lib/network_handler/NetworkHandler.hpp)
+
+## Limitations
+
+- The current timezone is set to Europe/Berlin. (CET/CEST)
