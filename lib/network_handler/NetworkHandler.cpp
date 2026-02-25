@@ -1,4 +1,5 @@
 #include "NetworkHandler.hpp"
+
 #include <WiFi.h>
 
 auto SSID = "Arne";
@@ -19,9 +20,10 @@ void setup() {
     delay(1000);
   }
 
-  Serial.printf("Connected to Network successfully.\n"
-                "-> Local IP: %s\n"
-                "-> WiFi Strength: %i\n",
-                WiFi.localIP().toString().c_str(), WiFi.RSSI());
+  Serial.printf(
+      "Connected to Network successfully.\n"
+      "-> Local IP: %s\n"
+      "-> WiFi Strength: %i\n",
+      WiFi.localIP().toString().c_str(), WiFi.RSSI());
 }
-} // namespace network_handler
+}  // namespace network_handler

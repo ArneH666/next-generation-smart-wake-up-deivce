@@ -10,6 +10,6 @@ enum MotorDirection {
 
 void driveDirection(MotorDirection direction);
 void turnAngle(int turn_angle);
-} // namespace vehicle_controller
+}  // namespace vehicle_controller
 
-#endif // NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_VEHICLECONTROLLER_HPP
+#endif  // NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_VEHICLECONTROLLER_HPP

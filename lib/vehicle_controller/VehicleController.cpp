@@ -1,23 +1,23 @@
 #include "VehicleController.hpp"
 
-#include "../../include/Pins.hpp"
-
 #include <Arduino.h>
+
+#include <Pins.hpp>
 
 void setMotorDirection(int motor_forward_pin, int motor_reverse_pin);
 
 namespace vehicle_controller {
 void driveDirection(const MotorDirection direction) {
   switch (direction) {
-  case FORWARD:
-    setMotorDirection(HIGH, LOW);
-    break;
-  case REVERSE:
-    setMotorDirection(LOW, HIGH);
-    break;
-  case STOP:
-    setMotorDirection(LOW, LOW);
-    break;
+    case FORWARD:
+      setMotorDirection(HIGH, LOW);
+      break;
+    case REVERSE:
+      setMotorDirection(LOW, HIGH);
+      break;
+    case STOP:
+      setMotorDirection(LOW, LOW);
+      break;
   }
 }
 
@@ -26,7 +26,7 @@ void turnAngle(const int turn_angle) {
   ledcWrite(SERVO_STEERING_CHANEL, duty_cycle);
 }
 
-} // namespace vehicle_controller
+}  // namespace vehicle_controller
 
 void setMotorDirection(const int motor_forward_pin,
                        const int motor_reverse_pin) {

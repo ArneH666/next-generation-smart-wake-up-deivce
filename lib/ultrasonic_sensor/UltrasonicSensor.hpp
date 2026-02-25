@@ -3,6 +3,6 @@
 
 namespace ultrasonic_sensor {
 double getDistance();
-} // namespace ultrasonic_sensor
+}  // namespace ultrasonic_sensor
 
-#endif // NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_ULTRASONIC_SENSOR_HPP
+#endif  // NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_ULTRASONIC_SENSOR_HPP

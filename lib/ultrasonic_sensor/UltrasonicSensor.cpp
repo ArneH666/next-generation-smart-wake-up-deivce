@@ -1,6 +1,8 @@
 #include "UltrasonicSensor.hpp"
-#include "../../include/Pins.hpp"
+
 #include <Arduino.h>
+
+#include <Pins.hpp>
 
 void triggerSensor();
 
@@ -13,7 +15,7 @@ double getDistance() {
 
   return (signal_duration * 0.0344) / 2;
 }
-} // namespace ultrasonic_sensor
+}  // namespace ultrasonic_sensor
 
 void triggerSensor() {
   digitalWrite(ULTRASONIC_SENSOR_TRIGGER_PIN, HIGH);

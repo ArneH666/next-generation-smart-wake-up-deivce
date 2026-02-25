@@ -1,8 +1,7 @@
 #include "TimeHandler.hpp"
-#include "ezTime.h"
-#include <Arduino.h>
 
-#include <utility>
+#include <Arduino.h>
+#include <ezTime.h>
 
 Timezone TZGermany;
 
@@ -15,4 +14,4 @@ void setup() {
 String getDateTime(String time_format) {
   return TZGermany.dateTime(std::move(time_format));
 }
-} // namespace time_handler
+}  // namespace time_handler

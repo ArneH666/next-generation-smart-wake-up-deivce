@@ -3,6 +3,6 @@
 
 namespace network_handler {
 void setup();
-} // namespace network_handler
+}  // namespace network_handler
 
-#endif // NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_NETWORKHANDLER_HPP
+#endif  // NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_NETWORKHANDLER_HPP
