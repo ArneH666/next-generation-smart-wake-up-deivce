@@ -1,6 +1,8 @@
 #include "PinModeSetter.hpp"
-#include "../../include/Pins.hpp"
+
 #include <Arduino.h>
+
+#include <Pins.hpp>
 
 // TODO: Set the pin modes for all pins.
 
@@ -19,7 +21,7 @@ void setPinModes() {
   setSpecialPins();
   setMisc();
 }
-} // namespace pinmode_setter
+}  // namespace pinmode_setter
 
 void setInputPins() {
   constexpr int I = INPUT;
@@ -29,6 +31,8 @@ void setInputPins() {
 void setOutputPins() {
   constexpr int O = OUTPUT;
   pinMode(ULTRASONIC_SENSOR_TRIGGER_PIN, O);
+  pinMode(MOTOR_FORWARD_PIN, O);
+  pinMode(MOTOR_REVERSE_PIN, O);
 }
 
 void setSpecialPins() {}

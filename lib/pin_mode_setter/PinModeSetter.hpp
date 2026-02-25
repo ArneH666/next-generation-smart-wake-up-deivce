@@ -3,6 +3,6 @@
 
 namespace pinmode_setter {
 void setPinModes();
-} // namespace pinmode_setter
+}  // namespace pinmode_setter
 
-#endif // NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_PINMODESETTER_HPP
+#endif  // NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_PINMODESETTER_HPP
