@@ -1,10 +1,6 @@
 #include "AmbientSensor.hpp"
 
-#include <Wire.h>
-#include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
-
-#define SEA_LEVEL_PRESSURE 1013.25
 
 Adafruit_BME280 bme;
 
@@ -16,6 +12,5 @@ void setup() {
 }
 float readTemperature() { return bme.readTemperature(); }
 float readPressure() { return bme.readPressure() / 100.0F; }
-float readAltitude() { return bme.readAltitude(SEA_LEVEL_PRESSURE); }
 float readHumidity() { return bme.readHumidity(); }
-} // namespace ambient_sensor
+}  // namespace ambient_sensor
