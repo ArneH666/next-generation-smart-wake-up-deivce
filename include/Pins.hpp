@@ -5,17 +5,13 @@
 // TODO: Set correct pins
 
 // Pins:
-constexpr uint8_t ULTRASONIC_SENSOR_TRIGGER_PIN = -1;
-constexpr uint8_t ULTRASONIC_SENSOR_ECHO_PIN = -1;
+constexpr uint8_t ULTRASONIC_SENSOR_TRIGGER_PIN = 33;
+constexpr uint8_t ULTRASONIC_SENSOR_ECHO_PIN = 34;
 
-constexpr uint8_t MOTOR_FORWARD_PIN = -1;
-constexpr uint8_t MOTOR_REVERSE_PIN = -1;
+constexpr uint8_t MOTOR_FORWARD_PIN = 17;
+constexpr uint8_t MOTOR_REVERSE_PIN = 18;
 
-constexpr uint8_t SERVO_STEERING_PIN = -1;
-
-constexpr uint8_t AMBIENT_SENSOR_SCL = -1;
-constexpr uint8_t AMBIENT_SENSOR_SDA = -1;
-constexpr uint8_t AMBIENT_SENSOR_SDO = -1;
+constexpr uint8_t SERVO_STEERING_PIN = 16;
 
 constexpr uint8_t SPEAKER_AMPLIFIER_LRC = 32;
 constexpr uint8_t SPEAKER_AMPLIFIER_BCLK = 33;
