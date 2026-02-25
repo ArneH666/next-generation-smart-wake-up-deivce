@@ -1,17 +1,22 @@
 #include "Display.hpp"
+
 #include "images/icons.hpp"
 
 auto tft = TFT_eSPI();
+
+// TODO: Use Sprites
+// TODO: Bigger Font
 
 namespace display {
 void init() {
   tft.init();
   tft.setRotation(1);
-  tft.setFreeFont(1);
+  tft.setTextFont(1);
 }
 
-void drawMainScreen(String time_text, String day_date_text, String humidity,
-                    String pressure, String temperature, String alarm_time) {
+void drawMainScreen(const String &time_text, const String &day_date_text,
+                    const String &humidity, const String &pressure,
+                    const String &temperature, const String &alarm_time) {
   tft.fillScreen(0x0);
 
   // Time

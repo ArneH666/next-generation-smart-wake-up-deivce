@@ -4,22 +4,23 @@
 
 | ESP32 Pin | Component Pin      | Special Condition |
 |-----------|--------------------|-------------------|
-| 4         |                    |                   |
+| 2         | TFT DC             |                   |
+| 4         | TFT RST            |                   |
 | (12)      |                    | LOW during boot   |
-| 13        |                    |                   |
+| 13        | TOUCH CS           |                   |
 | 14        |                    |                   |
-| (15)      |                    | HIGH during boot  |
+| (15)      | TFT CS             | HIGH during boot  |
 | 16        | Servo Data         |                   |
 | 17        | Motor DRV Forward  |                   |
 | 18        | Motor DRV Backward |                   |
-| 19        |                    |                   |
+| 19        | TFT Miso           |                   |
 | 21        | SDA                | I2C               |
 | 22        | SCL                | I2C               |
-| 23        |                    |                   |
-| 25        |                    |                   |
+| 23        | TFT Mosi           |                   |
+| 25        | TFT SCLK           |                   |
 | 26        |                    |                   |
 | 27        |                    |                   |
-| 32        |                    |                   |
+| 32        | TFT Backlight      |                   |
 | 33        | US-Sensor Trig     |                   |
 | 34        | US-Sensor Echo     | INPUT ONLY        |
 | 35        |                    | INPUT ONLY        |
