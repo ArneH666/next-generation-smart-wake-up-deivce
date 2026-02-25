@@ -1,4 +1,3 @@
 #include "Speaker.hpp"
 
-namespace lib {
-} // lib
+namespace speaker {} // namespace speaker

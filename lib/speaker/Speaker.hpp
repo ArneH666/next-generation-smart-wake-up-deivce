@@ -1,11 +1,6 @@
 #ifndef NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_SPEAKER_HPP
 #define NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_SPEAKER_HPP
 
+namespace speaker {} // namespace speaker
 
-namespace lib {
-    class Speaker {
-    };
-}
-
-
-#endif //NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_SPEAKER_HPP
+#endif // NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_SPEAKER_HPP

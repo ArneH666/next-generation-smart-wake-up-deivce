@@ -1,28 +1,65 @@
 # Pinout
 
-## Assigned
+## ESP32 Pins to Components
 
-### Ultrasonic distance sensor
+| ESP32 Pin | Component Pin      | Special Condition |
+|-----------|--------------------|-------------------|
+| 4         |                    |                   |
+| (12)      |                    | LOW during boot   |
+| 13        |                    |                   |
+| 14        |                    |                   |
+| (15)      |                    | HIGH during boot  |
+| 16        | Servo Data         |                   |
+| 17        | Motor DRV Forward  |                   |
+| 18        | Motor DRV Backward |                   |
+| 19        |                    |                   |
+| 21        | SDA                | I2C               |
+| 22        | SCL                | I2C               |
+| 23        |                    |                   |
+| 25        |                    |                   |
+| 26        |                    |                   |
+| 27        |                    |                   |
+| 32        |                    |                   |
+| 33        | US-Sensor Trig     |                   |
+| 34        | US-Sensor Echo     | INPUT ONLY        |
+| 35        |                    | INPUT ONLY        |
+| 36        |                    | INPUT ONLY        |
+| 39        |                    | INPUT ONLY        |
 
-- D18: Trigger
-- D19: Echo
+## ESP32
 
-## Unassigned
+- Power:
+  - Startup: max. 700mA
+  - max cont: 250mA
 
-- D4
-- D13
-- D14
-- RX2
-- TX2
-- D21
-- D22
-- D23
-- D25
-- D26
-- D27
-- D32
-- D33
-- D34 (Inout only)
-- D35 (Inout only)
-- VP (Inout only)
-- VN (Inout only)
+## Ultrasonic distance sensor
+
+- Power
+  - 5V
+  - 15mA
+- **Output at 5V?**
+
+## BME280
+
+- Power:
+  - 3.3V
+  - 3.6uA
+
+## Speaker driver
+
+- Power
+  - 5V
+  - max typ: 400mA
+  - max peak: 1.5A
+
+## Servo Motor
+- Power:
+  - 5V
+  - ~430mA
+
+## Display
+
+- Power:
+  - 3.3V
+  - Backlight: about 150mA
+  - 15mA Controller

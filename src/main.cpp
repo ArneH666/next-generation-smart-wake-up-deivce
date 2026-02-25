@@ -1,3 +1,5 @@
+#include "../lib/display/Display.hpp"
+
 #include <Arduino.h>
 
 #include <AmbientSensor.hpp>
@@ -30,4 +32,7 @@ void loop() {
     ambient_sensor::readHumidity()
   );*/
   // Serial.println(ultrasonic_sensor::getDistance());
+  // events();
+  vehicle_controller::turnAngle(90);
+  delay(5);
 }

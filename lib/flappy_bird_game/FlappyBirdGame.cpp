@@ -1,4 +1,3 @@
 #include "FlappyBirdGame.hpp"
 
-namespace lib {
-} // lib
+namespace flappy_bird {} // namespace flappy_bird

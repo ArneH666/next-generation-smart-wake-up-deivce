@@ -2,9 +2,8 @@
 #define NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_FLAPPYBIRDGAME_HPP
 
 
-namespace lib {
-    class FlappyBirdGame {
-    };
+namespace flappy_bird {
+class FlappyBirdGame {};
 } // lib
 
 
