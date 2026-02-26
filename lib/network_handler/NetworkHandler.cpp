@@ -2,8 +2,11 @@
 
 #include <WiFi.h>
 
-auto SSID = "Arne";
-auto PASSWORD = "Arne666!";
+// auto SSID = "Arne";
+// auto PASSWORD = "Arne666!";
+
+auto SSID = "WLAN Hilbig";
+auto PASSWORD = "35872363245847254889";
 
 namespace network_handler {
 void setup() {

@@ -11,15 +11,19 @@
 namespace display {
 Display::Display() : TFT_Sprite(&this->TFT_Display) {
   this->TFT_Display.init();
-  this->TFT_Display.setRotation(1);
+  this->TFT_Display.setRotation(3);
   this->TFT_Display.setTextFont(0);
   this->TFT_Display.fillScreen(0x0);
 
   this->TFT_Sprite.setColorDepth(1);
   this->TFT_Sprite.createSprite(480, 320);
   this->TFT_Sprite.setTextFont(0);
+
+  uint16_t calData[5] = {202, 3718, 273, 3565, 1};
+  this->TFT_Display.setTouch(calData);
 }
 void Display::draw() {
+  this->TFT_Display.invertDisplay(this->inverted_colors);
   if (this->current_screen == MAIN_SCREEN) {
     MainScreenData data;
     data.current_time = time_handler::getDateTime("H:i:s");
@@ -100,9 +104,11 @@ void Display::drawMainScreen(const MainScreenData &main_screen_data) {
   // Line 5
   this->TFT_Sprite.drawLine(307, 259, 307, 202, 0xFFFF);
 
+  this->TFT_Sprite.drawBitmap(450, 0, DISPLAY_CONTRAST_IMAGE, 30, 32, 0xFFFF);
+
   this->TFT_Sprite.pushSprite(0, 0);
 }
-void Display::drawTimeScreen() {}
+void Display::drawTimeScreen() { this->TFT_Display.fillScreen(0x0); }
 void Display::drawSettingsScreen() {}
 void Display::handleTouch() {
   uint16_t x = 0, y = 0;
@@ -111,18 +117,20 @@ void Display::handleTouch() {
     return;
   }
 
-  Serial.print(x);
-  Serial.println(y);
+  Serial.printf("x: %u; y: %u\n", x, y);
 
   switch (this->current_screen) {
     case MAIN_SCREEN:
       if ((76 <= x && x <= 405 && 50 <= y && y <= 99) ||
           (15 <= x && x <= 215 && 208 <= y && y <= 256)) {
+        // Clock & Alarm
         this->current_screen = TIME_SCREEN;
       } else if ((322 <= x && x <= 465 && 207 <= y && y <= 255) ||
                  (15 <= x && x <= 250 && 273 <= y && y <= 308)) {
+        // Temp & Pressure
         this->unit_system_metric = not this->unit_system_metric;
-      } else if ((450 <= x && x <= 480 && y <= 302)) {
+      } else if ((450 <= x && x <= 480 && y <= 32)) {
+        // Contrast
         this->inverted_colors = not this->inverted_colors;
       }
     case TIME_SCREEN:

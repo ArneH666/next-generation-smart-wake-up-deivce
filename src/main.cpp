@@ -23,7 +23,7 @@ void setup() {
   ambient_sensor::setup();
   Serial.println("Current time: " + time_handler::getDateTime("H:i:s"));
 }
-int i = 1000;
+
 void loop() {
   // Serial.printf(
   //     "Temperature: %f\n"
@@ -33,11 +33,6 @@ void loop() {
   //     ambient_sensor::readHumidity());
   events();
   // Driver.drive();
-  if (i == 1000) {
-    DisplayInstance.draw();
-    i = 0;
-  } else {
-    i++;
-  }
+  DisplayInstance.draw();
   DisplayInstance.handleTouch();
 }
