@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <ezTime.h>
 
 #include <AmbientSensor.hpp>
 #include <AutonomousDriving.hpp>
@@ -10,30 +11,33 @@
 #include <VehicleController.hpp>
 
 auto Driver = autonomous_driving::Driver();
+auto DisplayInstance = display::Display();
 
 void setup() {
   Serial.begin(9600);
   Serial.println("Setup program start.");
 
   pinmode_setter::setPinModes();
-  // network_handler::setup();
-  // time_handler::setup();
-  // ambient_sensor::setup();
-  // Serial.println("Current time: " + time_handler::getDateTime("H:i:s"));
-  display::init();
+  network_handler::setup();
+  time_handler::setup();
+  ambient_sensor::setup();
+  Serial.println("Current time: " + time_handler::getDateTime("H:i:s"));
 }
-
+int i = 1000;
 void loop() {
   // Serial.printf(
-  //   "Temperature: %f\n"
-  //   "Pressure: %fhPa\n"
-  //   "Humidity: %f%%\n\n",
-  //   ambient_sensor::readTemperature(),
-  //   ambient_sensor::readPressure(),
-  //   ambient_sensor::readHumidity()
-  // );
+  //     "Temperature: %f\n"
+  //     "Pressure: %fhPa\n"
+  //     "Humidity: %f%%\n\n",
+  //     ambient_sensor::readTemperature(), ambient_sensor::readPressure(),
+  //     ambient_sensor::readHumidity());
+  events();
   // Driver.drive();
-  display::drawMainScreen("12:34", "Tue, 25. Feb", "56%", "1013hPa", "22",
-                          "23:45");
-  delay(100);
+  if (i == 1000) {
+    DisplayInstance.draw();
+    i = 0;
+  } else {
+    i++;
+  }
+  DisplayInstance.handleTouch();
 }

@@ -17,6 +17,7 @@
 #define TFT_RST   4
 
 #define TOUCH_CS 13
+#define TOUCH_
 
 #define LOAD_GLCD
 
