@@ -6,6 +6,7 @@
 namespace time_handler {
 void setup();
 String getDateTime(String time_format);
+bool isDay();
 }  // namespace time_handler
 
 #endif  // NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_TIMEHANDLER_HPP

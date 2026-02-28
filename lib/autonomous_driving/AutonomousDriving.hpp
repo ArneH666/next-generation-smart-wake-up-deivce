@@ -7,6 +7,8 @@ class Driver {
   Driver();
   void drive();
 
+  bool activated = false;
+
  private:
   unsigned long last_step_millis = 0;
 };

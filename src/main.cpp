@@ -7,8 +7,7 @@
 #include <NetworkHandler.hpp>
 #include <PinModeSetter.hpp>
 #include <TimeHandler.hpp>
-#include <UltrasonicSensor.hpp>
-#include <VehicleController.hpp>
+#include <BluetoothHandler.hpp>
 
 auto Driver = autonomous_driving::Driver();
 auto DisplayInstance = display::Display();
@@ -19,20 +18,16 @@ void setup() {
 
   pinmode_setter::setPinModes();
   network_handler::setup();
+  bluetooth_handler::init();
   time_handler::setup();
   ambient_sensor::setup();
-  Serial.println("Current time: " + time_handler::getDateTime("H:i:s"));
 }
 
 void loop() {
-  // Serial.printf(
-  //     "Temperature: %f\n"
-  //     "Pressure: %fhPa\n"
-  //     "Humidity: %f%%\n\n",
-  //     ambient_sensor::readTemperature(), ambient_sensor::readPressure(),
-  //     ambient_sensor::readHumidity());
-  events();
-  // Driver.drive();
   DisplayInstance.draw();
   DisplayInstance.handleTouch();
+  bluetooth_handler::handleBluetoothMessage(Driver);
+  Driver.drive();
+  events();
+  // Driver.drive();
 }

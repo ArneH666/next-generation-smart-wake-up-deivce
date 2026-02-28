@@ -6,10 +6,16 @@
 #include <VehicleController.hpp>
 
 namespace autonomous_driving {
-Driver::Driver() {}
+Driver::Driver() = default;
 
 void Driver::drive() {
-  const int ultrasonic_sensor_distance = ultrasonic_sensor::getDistance();
+  if (not this->activated) {
+    return;
+  }
+
+  Serial.println("AUTONOMOUS DRIVING");
+
+  const double ultrasonic_sensor_distance = ultrasonic_sensor::getDistance();
 
   if (this->last_step_millis != 0 || millis() - this->last_step_millis < 500) {
     vehicle_controller::driveDirection(vehicle_controller::REVERSE);

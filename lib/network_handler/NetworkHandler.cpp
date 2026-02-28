@@ -2,11 +2,7 @@
 
 #include <WiFi.h>
 
-// auto SSID = "Arne";
-// auto PASSWORD = "Arne666!";
-
-auto SSID = "WLAN Hilbig";
-auto PASSWORD = "35872363245847254889";
+#include <EnvironmentVariables.hpp>
 
 namespace network_handler {
 void setup() {
@@ -18,9 +14,13 @@ void setup() {
 
   Serial.println("Starting Network Connection.");
 
-  while (WiFiClass::status() != WL_CONNECTED) {
-    Serial.println("Waiting for WiFi connection ...");
-    delay(1000);
+  for (int i = 0; i < 5; i++) {
+    if (WiFiClass::status() != WL_CONNECTED) {
+      Serial.println("Waiting for WiFi connection ...");
+      delay(1000);
+    } else {
+      break;
+    }
   }
 
   Serial.printf(

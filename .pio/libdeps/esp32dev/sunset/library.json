@@ -1,0 +1,18 @@
+{
+  "name" : "sunset",
+  "version" : "1.1.7",
+  "description" : "Calculates Sunrise and Sunset, along with the Civil, Nautical, and Astronomical times for Sunrise/Sunset. It can also tell you the moon phase for a given time.",
+  "keywords" : "sunrise,sunset,moonphase",
+  "repository" :
+  {
+    "type" : "git",
+    "url" : "https://github.com/buelowp/sunset"
+  },
+  "authors" : {
+      "name" : "Peter Buelow",
+      "email" : "goballstate@gmail.com",
+      "maintainer" : true
+  },
+  "license" : "GPL-2.0-only",
+  "platforms" : "espressif8266, espressif32"
+}

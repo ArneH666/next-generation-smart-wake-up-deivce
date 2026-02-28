@@ -36,6 +36,8 @@
 - [ ] Trailer Hitch
 - [ ] Lighting; Including cable spots for trailer lights
 
+https://randomnerdtutorials.com/esp32-save-data-permanently-preferences/
+
 ## Setup
 
 - Add the correct Network SSID & Password in [NetworkHandler.hpp](lib/network_handler/NetworkHandler.hpp)

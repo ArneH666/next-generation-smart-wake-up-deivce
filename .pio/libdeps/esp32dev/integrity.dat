@@ -1,3 +1,4 @@
-bodmer/TFT_eSPI@^2.5.43
-ropg/ezTime@^0.8.3
+buelowp/sunset@^1.1.7
 adafruit/Adafruit BME280 Library@^2.3.0
+ropg/ezTime@^0.8.3
+bodmer/TFT_eSPI@^2.5.43
