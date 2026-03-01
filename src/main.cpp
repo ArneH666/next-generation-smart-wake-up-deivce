@@ -1,16 +1,18 @@
 #include <Arduino.h>
 #include <ezTime.h>
 
+#include <AlarmHandler.hpp>
 #include <AmbientSensor.hpp>
 #include <AutonomousDriving.hpp>
+#include <BluetoothHandler.hpp>
 #include <Display.hpp>
 #include <NetworkHandler.hpp>
 #include <PinModeSetter.hpp>
 #include <TimeHandler.hpp>
-#include <BluetoothHandler.hpp>
 
 auto Driver = autonomous_driving::Driver();
-auto DisplayInstance = display::Display();
+auto AlarmHandler = alarm_handler::AlarmHandler();
+auto DisplayInstance = display::Display(AlarmHandler);
 
 void setup() {
   Serial.begin(9600);

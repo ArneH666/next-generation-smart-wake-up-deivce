@@ -23,10 +23,12 @@ void setup() {
     }
   }
 
-  Serial.printf(
-      "Connected to Network successfully.\n"
-      "-> Local IP: %s\n"
-      "-> WiFi Strength: %i\n",
-      WiFi.localIP().toString().c_str(), WiFi.RSSI());
+  if (WiFiClass::status() == WL_CONNECTED) {
+    Serial.printf(
+        "Connected to Network successfully.\n"
+        "-> Local IP: %s\n"
+        "-> WiFi Strength: %i\n",
+        WiFi.localIP().toString().c_str(), WiFi.RSSI());
+  }
 }
 }  // namespace network_handler
