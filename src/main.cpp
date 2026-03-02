@@ -9,6 +9,7 @@
 #include <NetworkHandler.hpp>
 #include <PinModeSetter.hpp>
 #include <TimeHandler.hpp>
+#include <UltrasonicSensor.hpp>
 
 auto Driver = autonomous_driving::Driver();
 auto AlarmHandler = alarm_handler::AlarmHandler();
@@ -26,10 +27,13 @@ void setup() {
 }
 
 void loop() {
+  events();
+  if (AlarmHandler.checkForAlarm() && ultrasonic_sensor::detectHand()) {
+      AlarmHandler.turnOffAlarm();
+  }
   DisplayInstance.draw();
   DisplayInstance.handleTouch();
   bluetooth_handler::handleBluetoothMessage(Driver);
   Driver.drive();
-  events();
   // Driver.drive();
 }

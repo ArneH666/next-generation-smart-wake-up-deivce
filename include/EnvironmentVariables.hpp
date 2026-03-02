@@ -1,12 +1,12 @@
 #ifndef NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_ENVIRONMENT_VARIABLES_HPP
 #define NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_ENVIRONMENT_VARIABLES_HPP
 
-// auto SSID = "Arne";
-// auto PASSWORD = "Arne666!";
-auto SSID = "";
-auto PASSWORD = "";
+constexpr auto SSID = "Arne";
+constexpr auto PASSWORD = "Arne666!";
+// auto SSID = "";
+// auto PASSWORD = "";
 
-float latitude = 0.0;
-float longitude = 0.0;
+constexpr float LATITUDE = 52.42544316833561;
+constexpr float LONGITUDE = 10.77948654173472;
 
 #endif  // NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_ENVIRONMENT_VARIABLES_HPP

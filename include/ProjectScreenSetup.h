@@ -9,8 +9,7 @@
 
 // #define TFT_INVERSION_OFF
 
-#define TFT_MISO \
-  19  // (leave TFT SDO disconnected if other SPI devices share MISO)
+#define TFT_MISO 19  // (leave SDO disconnected if other SPI devices share MISO)
 #define TFT_MOSI 23
 #define TFT_SCLK 25
 #define TFT_CS 15  // Chip select control pin

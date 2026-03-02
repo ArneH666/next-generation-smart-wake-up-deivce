@@ -20,7 +20,11 @@ void AlarmHandler::removeAlarm(const long alarm_index) {
   this->alarmList.shrink_to_fit();
 }
 
-bool AlarmHandler::checkForAlarm() const {
+bool AlarmHandler::checkForAlarm() {
+  if (this->current_alarm) {
+    return true;
+  }
+
   if (this->alarmList.empty()) {
     return false;
   }
@@ -29,7 +33,15 @@ bool AlarmHandler::checkForAlarm() const {
     return false;
   }
 
+  this->alarmList.erase(this->alarmList.begin());
+  this->alarmList.shrink_to_fit();
+  this->current_alarm = true;
+
   return true;
+}
+
+void AlarmHandler::turnOffAlarm() {
+  this->current_alarm = false;
 }
 
 time_t AlarmHandler::getNextAlarm() const {

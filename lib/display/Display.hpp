@@ -12,9 +12,10 @@ enum CurrentScreen {
   SETTINGS_SCREEN,
 };
 
-enum TIME_SETTING_RESPONSIBILITY {
+enum TimeSettingResponsibility {
   CURRENT_TIME,
   SET_ALARM,
+  UNDEFINED,
 };
 
 struct MainScreenData {
@@ -61,7 +62,7 @@ class Display {
   TimeSettingScreenData current_time_setting_screen_data;
   TimeSettingScreenData previous_time_setting_screen_data;
   AlarmList current_alarms;
-  TIME_SETTING_RESPONSIBILITY time_setting_responsibility;
+  TimeSettingResponsibility time_setting_responsibility;
   bool pressure_metric_system = true;
   bool temperature_metric_system = true;
   bool temperature_system_change = false;
@@ -69,6 +70,8 @@ class Display {
   bool screen_changed = true;
   int page = 0;
   unsigned long last_touch = 0;
+
+  bool time_dependent_theme = true;
 };
 }  // namespace display
 

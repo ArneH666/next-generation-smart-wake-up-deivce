@@ -32,6 +32,7 @@ Display::Display(const alarm_handler::AlarmHandler &handler) {
   this->TFT_Display.setRotation(3);
   this->TFT_Display.setTextFont(0);
   this->TFT_Display.fillScreen(TFT_BLACK);
+  this->time_setting_responsibility = UNDEFINED;
 
   uint16_t calData[5] = {202, 3718, 273, 3565, 1};
   this->TFT_Display.setTouch(calData);
@@ -131,7 +132,8 @@ void Display::draw() {
             " hPa";
       } else {
         data.pressure =
-            String(roundf(0.02953 * ambient_sensor::readPressure() * 100) /
+            String(roundf(0.02953 *  // NOLINT(*-narrowing-conversions)
+                          ambient_sensor::readPressure() * 100) /
                    100) +
             "\"Hg";
       }
@@ -166,6 +168,195 @@ void Display::draw() {
       break;
     }
   }
+}
+
+void Display::handleTouch() {
+  uint16_t x = 0, y = 0;
+
+  if (not this->TFT_Display.getTouch(&x, &y)) {
+    return;
+  }
+
+  if (millis() - this->last_touch < 200) {
+    return;
+  }
+
+  this->last_touch = millis();
+
+  // INFO: Ignoring narrowing conversion due to problem in TFT_eSPI
+  // NOLINTBEGIN(*-narrowing-conversions)
+  switch (this->current_screen) {
+    case MAIN_SCREEN: {
+      if (contrast_button.contains(x, y)) {
+        this->inverted_colors = not this->inverted_colors;
+      } else if (temperature_button.contains(x, y)) {
+        this->temperature_metric_system = not this->temperature_metric_system;
+        this->temperature_system_change = true;
+      } else if (pressure_button.contains(x, y)) {
+        this->pressure_metric_system = not this->pressure_metric_system;
+      } else if (time_button.contains(x, y)) {
+        this->current_screen = TIME_SETTING_SCREEN;
+        this->time_setting_responsibility = CURRENT_TIME;
+        this->screen_changed = true;
+      } else if (alarm_button.contains(x, y)) {
+        this->current_screen = ALARM_OVERVIEW_SCREEN;
+        this->screen_changed = true;
+      }
+      break;
+    }
+    case TIME_SETTING_SCREEN: {
+      if (time_confirm_button.contains(x, y)) {
+        if (this->time_setting_responsibility == CURRENT_TIME) {
+          const bool success = time_handler::setDateTime(
+              this->current_time_setting_screen_data.current_input);
+          if (success) {
+            this->current_screen = MAIN_SCREEN;
+            this->screen_changed = true;
+            this->current_time_setting_screen_data = TimeSettingScreenData();
+            this->previous_time_setting_screen_data = TimeSettingScreenData();
+          }
+        } else {
+          const time_t epoch = time_handler::getEpochTime(
+              this->current_time_setting_screen_data.current_input);
+          this->alarm_handler.newAlarm(epoch);
+          this->current_screen = ALARM_OVERVIEW_SCREEN;
+          this->screen_changed = true;
+          this->current_time_setting_screen_data = TimeSettingScreenData();
+          this->previous_time_setting_screen_data = TimeSettingScreenData();
+        }
+      } else if (time_cancel_button.contains(x, y)) {
+        if (this->time_setting_responsibility == CURRENT_TIME) {
+          this->current_screen = MAIN_SCREEN;
+        } else {
+          this->current_screen = ALARM_OVERVIEW_SCREEN;
+        }
+        this->screen_changed = true;
+        this->current_time_setting_screen_data = TimeSettingScreenData();
+        this->previous_time_setting_screen_data = TimeSettingScreenData();
+      } else if (time_backspace_button.contains(x, y) &&
+                 this->current_time_setting_screen_data.current_index >= 0) {
+        if (this->current_time_setting_screen_data.current_index != -1) {
+          this->current_time_setting_screen_data.current_input.setCharAt(
+              this->current_time_setting_screen_data.current_index, ' ');
+          this->current_time_setting_screen_data.current_index--;
+        } else {
+          this->current_time_setting_screen_data.current_input.setCharAt(0,
+                                                                         ' ');
+        }
+      } else if (time_num_0_button.contains(x, y) &&
+                 this->current_time_setting_screen_data.current_index < 14) {
+        if (this->current_time_setting_screen_data.current_index != 13) {
+          this->current_time_setting_screen_data.current_index++;
+        }
+        this->current_time_setting_screen_data.current_input.setCharAt(
+            this->current_time_setting_screen_data.current_index, '0');
+      } else if (time_num_1_button.contains(x, y) &&
+                 this->current_time_setting_screen_data.current_index < 14) {
+        if (this->current_time_setting_screen_data.current_index != 13) {
+          this->current_time_setting_screen_data.current_index++;
+        }
+        this->current_time_setting_screen_data.current_input.setCharAt(
+            this->current_time_setting_screen_data.current_index, '1');
+      } else if (time_num_2_button.contains(x, y) &&
+                 this->current_time_setting_screen_data.current_index < 14) {
+        if (this->current_time_setting_screen_data.current_index != 13) {
+          this->current_time_setting_screen_data.current_index++;
+        }
+        this->current_time_setting_screen_data.current_input.setCharAt(
+            this->current_time_setting_screen_data.current_index, '2');
+      } else if (time_num_3_button.contains(x, y) &&
+                 this->current_time_setting_screen_data.current_index < 14) {
+        if (this->current_time_setting_screen_data.current_index != 13) {
+          this->current_time_setting_screen_data.current_index++;
+        }
+        this->current_time_setting_screen_data.current_input.setCharAt(
+            this->current_time_setting_screen_data.current_index, '3');
+      } else if (time_num_4_button.contains(x, y) &&
+                 this->current_time_setting_screen_data.current_index < 14) {
+        if (this->current_time_setting_screen_data.current_index != 13) {
+          this->current_time_setting_screen_data.current_index++;
+        }
+        this->current_time_setting_screen_data.current_input.setCharAt(
+            this->current_time_setting_screen_data.current_index, '4');
+      } else if (time_num_5_button.contains(x, y) &&
+                 this->current_time_setting_screen_data.current_index < 14) {
+        if (this->current_time_setting_screen_data.current_index != 13) {
+          this->current_time_setting_screen_data.current_index++;
+        }
+        this->current_time_setting_screen_data.current_input.setCharAt(
+            this->current_time_setting_screen_data.current_index, '5');
+      } else if (time_num_6_button.contains(x, y) &&
+                 this->current_time_setting_screen_data.current_index < 14) {
+        if (this->current_time_setting_screen_data.current_index != 13) {
+          this->current_time_setting_screen_data.current_index++;
+        }
+        this->current_time_setting_screen_data.current_input.setCharAt(
+            this->current_time_setting_screen_data.current_index, '6');
+      } else if (time_num_7_button.contains(x, y) &&
+                 this->current_time_setting_screen_data.current_index < 14) {
+        if (this->current_time_setting_screen_data.current_index != 13) {
+          this->current_time_setting_screen_data.current_index++;
+        }
+        this->current_time_setting_screen_data.current_input.setCharAt(
+            this->current_time_setting_screen_data.current_index, '7');
+      } else if (time_num_8_button.contains(x, y) &&
+                 this->current_time_setting_screen_data.current_index < 14) {
+        if (this->current_time_setting_screen_data.current_index != 13) {
+          this->current_time_setting_screen_data.current_index++;
+        }
+        this->current_time_setting_screen_data.current_input.setCharAt(
+            this->current_time_setting_screen_data.current_index, '8');
+      } else if (time_num_9_button.contains(x, y) &&
+                 this->current_time_setting_screen_data.current_index < 14) {
+        if (this->current_time_setting_screen_data.current_index != 13) {
+          this->current_time_setting_screen_data.current_index++;
+        }
+        this->current_time_setting_screen_data.current_input.setCharAt(
+            this->current_time_setting_screen_data.current_index, '9');
+      }
+
+      const String curr = this->current_time_setting_screen_data.current_input;
+      this->current_time_setting_screen_data.current_time =
+          curr.substring(0, 2) + ":" + curr.substring(2, 4) + ":" +
+          curr.substring(4, 6);
+      this->current_time_setting_screen_data.current_date =
+          curr.substring(6, 8) + "." + curr.substring(8, 10) + "." +
+          curr.substring(10);
+      break;
+    }
+    case ALARM_OVERVIEW_SCREEN: {
+      if (alarm_add_button.contains(x, y)) {
+        this->current_alarms = AlarmList();
+        this->current_screen = TIME_SETTING_SCREEN;
+        this->time_setting_responsibility = SET_ALARM;
+        this->screen_changed = true;
+      } else if (alarm_up_button.contains(x, y) &&
+                 !this->current_alarms.is_first_page) {
+        this->page -= 1;
+      } else if (alarm_down_button.contains(x, y) &&
+                 !this->current_alarms.is_last_page) {
+        this->page += 1;
+      } else if (alarm_cancel_button.contains(x, y)) {
+        this->current_screen = MAIN_SCREEN;
+        this->screen_changed = true;
+        this->current_alarms = AlarmList();
+      } else if (alarm_delete_1_button.contains(x, y) &&
+                 this->current_alarms.alarm1 != 0) {
+        this->alarm_handler.removeAlarm(this->page * 3);
+      } else if (alarm_delete_2_button.contains(x, y) &&
+                 this->current_alarms.alarm2 != 0) {
+        this->alarm_handler.removeAlarm(this->page * 3 + 1);
+      } else if (alarm_delete_3_button.contains(x, y) &&
+                 this->current_alarms.alarm3 != 0) {
+        this->alarm_handler.removeAlarm(this->page * 3 + 2);
+      }
+      break;
+    }
+    case SETTINGS_SCREEN: {
+      break;
+    }
+  }
+  // NOLINTEND(*-narrowing-conversions)
 }
 
 void Display::drawMainScreen(const MainScreenData &main_screen_data) {
@@ -246,6 +437,9 @@ void Display::drawMainScreen(const MainScreenData &main_screen_data) {
       this->TFT_Display.drawBitmap(246, 209, DAYTIME_IMAGE, 45, 45, TFT_BLACK);
       this->TFT_Display.drawBitmap(245, 209, NIGHTTIME_IMAGE, 48, 48,
                                    TFT_WHITE);
+    }
+    if (this->time_dependent_theme) {
+      this->inverted_colors = main_screen_data.is_day;
     }
   }
 
@@ -501,195 +695,6 @@ void Display::drawAlarmOverviewScreen(const AlarmList &alarm_list) {
 }
 
 void Display::drawSettingsScreen() {}
-
-void Display::handleTouch() {
-  uint16_t x = 0, y = 0;
-
-  if (not this->TFT_Display.getTouch(&x, &y)) {
-    return;
-  }
-
-  if (millis() - this->last_touch < 200) {
-    return;
-  }
-
-  this->last_touch = millis();
-
-  // INFO: Ignoring narrowing conversion due to problem in TFT_eSPI
-  // NOLINTBEGIN(*-narrowing-conversions)
-  switch (this->current_screen) {
-    case MAIN_SCREEN: {
-      if (contrast_button.contains(x, y)) {
-        this->inverted_colors = not this->inverted_colors;
-      } else if (temperature_button.contains(x, y)) {
-        this->temperature_metric_system = not this->temperature_metric_system;
-        this->temperature_system_change = true;
-      } else if (pressure_button.contains(x, y)) {
-        this->pressure_metric_system = not this->pressure_metric_system;
-      } else if (time_button.contains(x, y)) {
-        this->current_screen = TIME_SETTING_SCREEN;
-        this->time_setting_responsibility = CURRENT_TIME;
-        this->screen_changed = true;
-      } else if (alarm_button.contains(x, y)) {
-        this->current_screen = ALARM_OVERVIEW_SCREEN;
-        this->screen_changed = true;
-      }
-      break;
-    }
-    case TIME_SETTING_SCREEN: {
-      if (time_confirm_button.contains(x, y)) {
-        if (this->time_setting_responsibility == CURRENT_TIME) {
-          const bool success = time_handler::setDateTime(
-              this->current_time_setting_screen_data.current_input);
-          if (success) {
-            this->current_screen = MAIN_SCREEN;
-            this->screen_changed = true;
-            this->current_time_setting_screen_data = TimeSettingScreenData();
-            this->previous_time_setting_screen_data = TimeSettingScreenData();
-          }
-        } else {
-          const time_t epoch = time_handler::getEpochTime(
-              this->current_time_setting_screen_data.current_input);
-          this->alarm_handler.newAlarm(epoch);
-          this->current_screen = ALARM_OVERVIEW_SCREEN;
-          this->screen_changed = true;
-          this->current_time_setting_screen_data = TimeSettingScreenData();
-          this->previous_time_setting_screen_data = TimeSettingScreenData();
-        }
-      } else if (time_cancel_button.contains(x, y)) {
-        if (this->time_setting_responsibility == CURRENT_TIME) {
-          this->current_screen = MAIN_SCREEN;
-        } else {
-          this->current_screen = ALARM_OVERVIEW_SCREEN;
-        }
-        this->screen_changed = true;
-        this->current_time_setting_screen_data = TimeSettingScreenData();
-        this->previous_time_setting_screen_data = TimeSettingScreenData();
-      } else if (time_backspace_button.contains(x, y) &&
-                 this->current_time_setting_screen_data.current_index >= 0) {
-        if (this->current_time_setting_screen_data.current_index != -1) {
-          this->current_time_setting_screen_data.current_input.setCharAt(
-              this->current_time_setting_screen_data.current_index, ' ');
-          this->current_time_setting_screen_data.current_index--;
-        } else {
-          this->current_time_setting_screen_data.current_input.setCharAt(0,
-                                                                         ' ');
-        }
-      } else if (time_num_0_button.contains(x, y) &&
-                 this->current_time_setting_screen_data.current_index < 14) {
-        if (this->current_time_setting_screen_data.current_index != 13) {
-          this->current_time_setting_screen_data.current_index++;
-        }
-        this->current_time_setting_screen_data.current_input.setCharAt(
-            this->current_time_setting_screen_data.current_index, '0');
-      } else if (time_num_1_button.contains(x, y) &&
-                 this->current_time_setting_screen_data.current_index < 14) {
-        if (this->current_time_setting_screen_data.current_index != 13) {
-          this->current_time_setting_screen_data.current_index++;
-        }
-        this->current_time_setting_screen_data.current_input.setCharAt(
-            this->current_time_setting_screen_data.current_index, '1');
-      } else if (time_num_2_button.contains(x, y) &&
-                 this->current_time_setting_screen_data.current_index < 14) {
-        if (this->current_time_setting_screen_data.current_index != 13) {
-          this->current_time_setting_screen_data.current_index++;
-        }
-        this->current_time_setting_screen_data.current_input.setCharAt(
-            this->current_time_setting_screen_data.current_index, '2');
-      } else if (time_num_3_button.contains(x, y) &&
-                 this->current_time_setting_screen_data.current_index < 14) {
-        if (this->current_time_setting_screen_data.current_index != 13) {
-          this->current_time_setting_screen_data.current_index++;
-        }
-        this->current_time_setting_screen_data.current_input.setCharAt(
-            this->current_time_setting_screen_data.current_index, '3');
-      } else if (time_num_4_button.contains(x, y) &&
-                 this->current_time_setting_screen_data.current_index < 14) {
-        if (this->current_time_setting_screen_data.current_index != 13) {
-          this->current_time_setting_screen_data.current_index++;
-        }
-        this->current_time_setting_screen_data.current_input.setCharAt(
-            this->current_time_setting_screen_data.current_index, '4');
-      } else if (time_num_5_button.contains(x, y) &&
-                 this->current_time_setting_screen_data.current_index < 14) {
-        if (this->current_time_setting_screen_data.current_index != 13) {
-          this->current_time_setting_screen_data.current_index++;
-        }
-        this->current_time_setting_screen_data.current_input.setCharAt(
-            this->current_time_setting_screen_data.current_index, '5');
-      } else if (time_num_6_button.contains(x, y) &&
-                 this->current_time_setting_screen_data.current_index < 14) {
-        if (this->current_time_setting_screen_data.current_index != 13) {
-          this->current_time_setting_screen_data.current_index++;
-        }
-        this->current_time_setting_screen_data.current_input.setCharAt(
-            this->current_time_setting_screen_data.current_index, '6');
-      } else if (time_num_7_button.contains(x, y) &&
-                 this->current_time_setting_screen_data.current_index < 14) {
-        if (this->current_time_setting_screen_data.current_index != 13) {
-          this->current_time_setting_screen_data.current_index++;
-        }
-        this->current_time_setting_screen_data.current_input.setCharAt(
-            this->current_time_setting_screen_data.current_index, '7');
-      } else if (time_num_8_button.contains(x, y) &&
-                 this->current_time_setting_screen_data.current_index < 14) {
-        if (this->current_time_setting_screen_data.current_index != 13) {
-          this->current_time_setting_screen_data.current_index++;
-        }
-        this->current_time_setting_screen_data.current_input.setCharAt(
-            this->current_time_setting_screen_data.current_index, '8');
-      } else if (time_num_9_button.contains(x, y) &&
-                 this->current_time_setting_screen_data.current_index < 14) {
-        if (this->current_time_setting_screen_data.current_index != 13) {
-          this->current_time_setting_screen_data.current_index++;
-        }
-        this->current_time_setting_screen_data.current_input.setCharAt(
-            this->current_time_setting_screen_data.current_index, '9');
-      }
-
-      const String curr = this->current_time_setting_screen_data.current_input;
-      this->current_time_setting_screen_data.current_time =
-          curr.substring(0, 2) + ":" + curr.substring(2, 4) + ":" +
-          curr.substring(4, 6);
-      this->current_time_setting_screen_data.current_date =
-          curr.substring(6, 8) + "." + curr.substring(8, 10) + "." +
-          curr.substring(10);
-      break;
-    }
-    case ALARM_OVERVIEW_SCREEN: {
-      if (alarm_add_button.contains(x, y)) {
-        this->current_alarms = AlarmList();
-        this->current_screen = TIME_SETTING_SCREEN;
-        this->time_setting_responsibility = SET_ALARM;
-        this->screen_changed = true;
-      } else if (alarm_up_button.contains(x, y) &&
-                 !this->current_alarms.is_first_page) {
-        this->page -= 1;
-      } else if (alarm_down_button.contains(x, y) &&
-                 !this->current_alarms.is_last_page) {
-        this->page += 1;
-      } else if (alarm_cancel_button.contains(x, y)) {
-        this->current_screen = MAIN_SCREEN;
-        this->screen_changed = true;
-        this->current_alarms = AlarmList();
-      } else if (alarm_delete_1_button.contains(x, y) &&
-                 this->current_alarms.alarm1 != 0) {
-        this->alarm_handler.removeAlarm(this->page * 3);
-      } else if (alarm_delete_2_button.contains(x, y) &&
-                 this->current_alarms.alarm2 != 0) {
-        this->alarm_handler.removeAlarm(this->page * 3 + 1);
-      } else if (alarm_delete_3_button.contains(x, y) &&
-                 this->current_alarms.alarm3 != 0) {
-        this->alarm_handler.removeAlarm(this->page * 3 + 2);
-      }
-      break;
-    }
-    case SETTINGS_SCREEN: {
-      break;
-    }
-  }
-  // NOLINTEND(*-narrowing-conversions)
-}
 }  // namespace display
 
 ExtractedTime extractAlarmData(const time_t current_time_t,

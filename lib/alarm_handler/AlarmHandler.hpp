@@ -17,11 +17,13 @@ class AlarmHandler {
  public:
   void newAlarm(time_t alarm_time);
   void removeAlarm(long alarm_index);
-  bool checkForAlarm() const;
+  bool checkForAlarm();
+  void turnOffAlarm();
   time_t getNextAlarm() const;
   AlarmList getAlarms(int page) const;
 
  private:
+  bool current_alarm = false;
   std::vector<time_t> alarmList = {1772317233, 1772318233, 1772319233,
                                    1772329233, 1772339233, 1772349233,
                                    1772349233};
