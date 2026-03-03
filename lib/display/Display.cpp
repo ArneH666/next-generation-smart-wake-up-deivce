@@ -26,7 +26,7 @@ TFT_eSPI_Button alarm_add_button, alarm_up_button, alarm_down_button,
     alarm_delete_3_button;
 
 namespace display {
-Display::Display(const alarm_handler::AlarmHandler &handler) {
+Display::Display(alarm_handler::AlarmHandler* handler) {
   this->alarm_handler = handler;
   this->TFT_Display.init();
   this->TFT_Display.setRotation(3);
@@ -144,7 +144,7 @@ void Display::draw() {
         data.temperature = String(static_cast<int>(
             round(ambient_sensor::readTemperature() * 1.8 + 32)));
       }
-      time_t t = this->alarm_handler.getNextAlarm();
+      time_t t = this->alarm_handler->getNextAlarm();
       if (t != 0) {
         ExtractedTime et = extractAlarmData(t, t);
         data.alarm_time = et.current_time.substring(0, 5);
@@ -160,7 +160,7 @@ void Display::draw() {
       break;
     }
     case (ALARM_OVERVIEW_SCREEN): {
-      const AlarmList al = this->alarm_handler.getAlarms(this->page);
+      const AlarmList al = this->alarm_handler->getAlarms(this->page);
       this->drawAlarmOverviewScreen(al);
       break;
     }
@@ -218,7 +218,7 @@ void Display::handleTouch() {
         } else {
           const time_t epoch = time_handler::getEpochTime(
               this->current_time_setting_screen_data.current_input);
-          this->alarm_handler.newAlarm(epoch);
+          this->alarm_handler->newAlarm(epoch);
           this->current_screen = ALARM_OVERVIEW_SCREEN;
           this->screen_changed = true;
           this->current_time_setting_screen_data = TimeSettingScreenData();
@@ -342,13 +342,13 @@ void Display::handleTouch() {
         this->current_alarms = AlarmList();
       } else if (alarm_delete_1_button.contains(x, y) &&
                  this->current_alarms.alarm1 != 0) {
-        this->alarm_handler.removeAlarm(this->page * 3);
+        this->alarm_handler->removeAlarm(this->page * 3);
       } else if (alarm_delete_2_button.contains(x, y) &&
                  this->current_alarms.alarm2 != 0) {
-        this->alarm_handler.removeAlarm(this->page * 3 + 1);
+        this->alarm_handler->removeAlarm(this->page * 3 + 1);
       } else if (alarm_delete_3_button.contains(x, y) &&
                  this->current_alarms.alarm3 != 0) {
-        this->alarm_handler.removeAlarm(this->page * 3 + 2);
+        this->alarm_handler->removeAlarm(this->page * 3 + 2);
       }
       break;
     }

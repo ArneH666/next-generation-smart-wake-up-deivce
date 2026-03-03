@@ -22,16 +22,22 @@ void AlarmHandler::removeAlarm(const long alarm_index) {
 
 bool AlarmHandler::checkForAlarm() {
   if (this->current_alarm) {
+    Serial.println("ALARM");
     return true;
   }
 
   if (this->alarmList.empty()) {
+    Serial.println("Empty");
+    Serial.println(this->alarmList.size());
     return false;
   }
 
   if (this->alarmList.front() > time_handler::getCurrentEpoch()) {
+    Serial.println("NOT TIME");
     return false;
   }
+
+  Serial.println("ALARM");
 
   this->alarmList.erase(this->alarmList.begin());
   this->alarmList.shrink_to_fit();
@@ -53,8 +59,8 @@ time_t AlarmHandler::getNextAlarm() const {
 
 AlarmList AlarmHandler::getAlarms(const int page) const {
   const uint length = this->alarmList.size();
-  const int pages = ceil(length / 3);
-  const int offset_element = page * 3;
+  const uint pages = ceil(length / 3);
+  const uint offset_element = page * 3;
 
   AlarmList list;
 

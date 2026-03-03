@@ -45,7 +45,7 @@ struct ExtractedTime {
 namespace display {
 class Display {
  public:
-  explicit Display(const alarm_handler::AlarmHandler& handler);
+  explicit Display(alarm_handler::AlarmHandler* handler);
   void draw();
   void handleTouch();
 
@@ -56,7 +56,7 @@ class Display {
   void drawSettingsScreen();
 
   TFT_eSPI TFT_Display;
-  alarm_handler::AlarmHandler alarm_handler;
+  alarm_handler::AlarmHandler *alarm_handler;
   CurrentScreen current_screen = MAIN_SCREEN;
   MainScreenData current_main_screen_data;
   TimeSettingScreenData current_time_setting_screen_data;

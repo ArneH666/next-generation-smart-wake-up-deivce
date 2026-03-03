@@ -2,30 +2,30 @@
 
 ## ESP32 Pins to Components
 
-| ESP32 Pin | Component Pin      | Special Condition |
-|-----------|--------------------|-------------------|
-| 2         | TFT DC             |                   |
-| 4         | TFT RST            |                   |
-| (12)      |                    | LOW during boot   |
-| 13        | TOUCH CS           |                   |
-| 14        |                    |                   |
-| (15)      | TFT CS             | HIGH during boot  |
-| 16        | Servo Data         |                   |
-| 17        | Motor DRV Forward  |                   |
-| 18        | Motor DRV Backward |                   |
-| 19        | TFT Miso           |                   |
-| 21        | SDA                | I2C               |
-| 22        | SCL                | I2C               |
-| 23        | TFT Mosi           |                   |
-| 25        | TFT SCLK           |                   |
-| 26        |                    |                   |
-| 27        |                    |                   |
-| 32        | TFT Backlight      |                   |
-| 33        | US-Sensor Trig     |                   |
-| 34        | US-Sensor Echo     | INPUT ONLY        |
-| 35        |                    | INPUT ONLY        |
-| 36        |                    | INPUT ONLY        |
-| 39        |                    | INPUT ONLY        |
+| ESP32 Pin | Component Pin       | Special Condition |
+|-----------|---------------------|-------------------|
+| 2         | TFT DC              |                   |
+| 4         | TFT RST             |                   |
+| (12)      | I2S BCLK Amp        | LOW during boot   |
+| 13        | TOUCH CS            |                   |
+| 14        | I2S LRC Amp         |                   |
+| (15)      | TFT CS              | HIGH during boot  |
+| 16        | Servo Data          |                   |
+| 17        | Motor DRV Forward   |                   |
+| 18        | Motor DRV Backward  |                   |
+| 19        | TFT Miso (TDO)      |                   |
+| 21        | SDA                 | I2C               |
+| 22        | SCL                 | I2C               |
+| 23        | TFT Mosi (TDI; SDI) |                   |
+| 25        | TFT SCLK (TCK; SCK) |                   |
+| 26        | I2S DIN Amp         |                   |
+| 27        |                     |                   |
+| 32        | TFT Backlight       |                   |
+| 33        | US-Sensor Trig      |                   |
+| 34        | US-Sensor Echo      | INPUT ONLY        |
+| 35        |                     | INPUT ONLY        |
+| 36        |                     | INPUT ONLY        |
+| 39        |                     | INPUT ONLY        |
 
 ## ESP32
 
