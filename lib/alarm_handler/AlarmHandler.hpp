@@ -24,7 +24,7 @@ class AlarmHandler {
 
  private:
   bool current_alarm = false;
-  std::vector<time_t> alarmList = {};
+  std::vector<time_t> alarmList{};
 };
 }  // namespace alarm_handler
 

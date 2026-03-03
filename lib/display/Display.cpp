@@ -26,7 +26,7 @@ TFT_eSPI_Button alarm_add_button, alarm_up_button, alarm_down_button,
     alarm_delete_3_button;
 
 namespace display {
-Display::Display(alarm_handler::AlarmHandler* handler) {
+Display::Display(alarm_handler::AlarmHandler *handler) {
   this->alarm_handler = handler;
   this->TFT_Display.init();
   this->TFT_Display.setRotation(3);

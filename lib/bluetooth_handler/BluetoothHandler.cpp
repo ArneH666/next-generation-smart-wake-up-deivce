@@ -2,8 +2,8 @@
 
 #include <BluetoothSerial.h>
 
-#include <VehicleController.hpp>
 #include <AutonomousDriving.hpp>
+#include <VehicleController.hpp>
 
 BluetoothSerial BTSerial;
 

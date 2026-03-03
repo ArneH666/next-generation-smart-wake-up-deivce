@@ -1,8 +1,5 @@
 #ifndef NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_PINS_HPP
 #define NEXT_GENERATION_SMART_WAKE_UP_DEIVCE_PINS_HPP
-#include <cstdint>
-
-// TODO: Set correct pins
 
 // Pins:
 #define ULTRASONIC_SENSOR_TRIGGER_PIN 33

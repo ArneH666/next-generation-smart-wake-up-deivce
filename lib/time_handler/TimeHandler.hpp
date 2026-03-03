@@ -8,7 +8,7 @@ namespace time_handler {
 void setup();
 String getDateTime(String time_format);
 bool isDay();
-bool setDateTime(const String &data);
+bool setDateTime(const String& data);
 time_t getCurrentEpoch();
 time_t getEpochTime(const String& data);
 }  // namespace time_handler

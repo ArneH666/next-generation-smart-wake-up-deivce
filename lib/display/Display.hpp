@@ -45,7 +45,7 @@ struct ExtractedTime {
 namespace display {
 class Display {
  public:
-  explicit Display(alarm_handler::AlarmHandler* handler);
+  explicit Display(alarm_handler::AlarmHandler *handler);
   void draw();
   void handleTouch();
 

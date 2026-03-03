@@ -40,7 +40,7 @@ bool isDay() {
   return sunrise <= minutes_past_midnight && minutes_past_midnight < sunset;
 }
 
-bool setDateTime(const String &data) {
+bool setDateTime(const String& data) {
   if (getEpochTime(data) == -1) return false;
 
   const uint8_t hours = data.substring(0, 2).toInt(),
@@ -50,16 +50,15 @@ bool setDateTime(const String &data) {
                 months = data.substring(8, 10).toInt();
   const uint16_t years = data.substring(10).toInt();
 
-  Serial.printf("%u, %u, %u, %u, %u, %u\n", hours, minutes, seconds, days, months, years);
+  Serial.printf("%u, %u, %u, %u, %u, %u\n", hours, minutes, seconds, days,
+                months, years);
 
   TZGermany.setTime(hours, minutes, seconds, days, months, years);
 
   return true;
 }
 
-time_t getCurrentEpoch() {
-  return TZGermany.now();
-}
+time_t getCurrentEpoch() { return TZGermany.now(); }
 
 time_t getEpochTime(const String& data) {
   if (data.indexOf(' ') != -1) {
